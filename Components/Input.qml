@@ -44,6 +44,7 @@ Column {
         ComboBox {
 
             id: selectUser
+            enabled: count > 1
 
             width: parent.height
             height: parent.height
@@ -182,6 +183,7 @@ Column {
             id: username
             text: config.ForceLastUser == "true" ? selectUser.currentText : null
             font.capitalization: config.AllowBadUsernames == "false" ? Font.Capitalize : Font.MixedCase
+            font.pointSize: root.font.pointSize
             anchors.centerIn: parent
             height: root.font.pointSize * 3
             width: parent.width
@@ -554,6 +556,7 @@ Column {
 
     SessionButton {
         id: sessionSelect
+        visible: sessionSelect.count > 1
         textConstantSession: textConstants.session
         loginButtonWidth: loginButton.background.width
     }
