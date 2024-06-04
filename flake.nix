@@ -17,13 +17,13 @@
             options.services.displayManager.sddm.sugarCandy.settings = lib.mkOption {
               type =
                 with lib.types;
-                attrsOf oneOf [
+                attrsOf (oneOf [
                   bool
                   int
                   float
                   str
                   path
-                ];
+                ]);
               description = "The configuration for the SDDM Sugar Candy theme written in Nix.";
               example = ''
                 {
@@ -41,9 +41,12 @@
                 }
               ];
 
-              services.displayManager.sddm.theme = "${pkgs.libsForQt5.callPackage ./default.nix {
-                themeConfig.General = config.services.displayManager.sddm.sugarCandy.settings;
-              }}";
+              environment.systemPackages = [
+                (pkgs.libsForQt5.callPackage ./default.nix {
+                  themeSettings.General = config.services.displayManager.sddm.sugarCandy.settings;
+                })
+              ];
+              services.displayManager.sddm.theme = "sddm-sugar-candy";
             };
           };
       };
