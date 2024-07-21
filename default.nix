@@ -8,8 +8,7 @@ stdenvNoCC.mkDerivation {
   pname = "sddm-sugar-candy";
   version = "1.6";
 
-  src =
-    with lib.fileset;
+  src = with lib.fileset;
     toSource {
       root = ./.;
       fileset = unions [
@@ -23,16 +22,14 @@ stdenvNoCC.mkDerivation {
 
   dontWrapQtApps = true;
 
-  propagatedUserEnvPkgs = [ qtgraphicaleffects ];
+  propagatedUserEnvPkgs = [qtgraphicaleffects];
 
-  installPhase =
-    let
-      themeDir = "$out/share/sddm/themes/sddm-sugar-candy";
-      settings = lib.generators.toINI { } themeSettings;
-    in
-    ''
-      mkdir -p ${themeDir}
-      cp -r . ${themeDir}
-      echo "${settings}" > ${themeDir}/theme.conf.user
-    '';
+  installPhase = let
+    themeDir = "$out/share/sddm/themes/sddm-sugar-candy";
+    settings = lib.generators.toINI {} themeSettings;
+  in ''
+    mkdir -p ${themeDir}
+    cp -r . ${themeDir}
+    echo "${settings}" > ${themeDir}/theme.conf.user
+  '';
 }
